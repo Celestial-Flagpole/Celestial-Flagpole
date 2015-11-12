@@ -2,7 +2,7 @@
   "name": "celestialflagpole",
   "version": "1.0.0",
   "description": "Floating Screen",
-  "main": "index.js",
+  "main": "index.html",
   "window": {
     "toolbar": true,
     "resizable": true,
