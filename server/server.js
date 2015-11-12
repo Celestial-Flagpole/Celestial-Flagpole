@@ -16,6 +16,7 @@ require('./config/middleware.js')(app, express);
 
 // Set up the port the server should listen to
 app.listen(process.env.PORT || 8686);
+console.log('Server now listening');
 
 // Export our app for testing and flexibility
 module.exports = app;
