@@ -1,5 +1,4 @@
 var express = require('express');
-// var mongoose = require('mongoose');
 
 var app = express();
 
@@ -16,7 +15,7 @@ var app = express();
 require('./config/middleware.js')(app, express);
 
 // Set up the port the server should listen to
-app.listen(8686);
+app.listen(process.env.PORT || 8686);
 
 // Export our app for testing and flexibility
 module.exports = app;

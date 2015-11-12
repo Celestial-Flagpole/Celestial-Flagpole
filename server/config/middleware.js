@@ -11,7 +11,7 @@ module.exports = function (app, express) {
   // Logger
   app.use(morgan('dev'));
   // Parse incoming raw data
-  app.use(bodyParser.raw{limit: '200000kb', type: 'video/mp4'});
+  app.use(bodyParser.raw({limit: '200000kb', type: 'video/mp4'});
   // Parse forms (signup/login)
   app.use(bodyParser.urlencoded({extended: true}));
   // Parse JSON (uniform resource locators)
