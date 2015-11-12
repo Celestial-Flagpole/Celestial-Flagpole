@@ -9,10 +9,12 @@ var fs = require('fs'); // File operations
 
 // https://nodejs.org/api/os.html
 
+/**************************************************
+Handling Minimize, Maximize and Close window events 
+****************************************************/
+
 win.isMaximized = false;
 
-// ========================= //
-// handling top bar user events
 document.getElementById('windowControlMinimize').onclick = function () {
   win.minimize();
 };
@@ -37,8 +39,75 @@ win.on('unmaximize', function() {
   win.isMaximized = false;
 });
 
-// ========================= //
-// context menu
+/**************************************************
+Handling user drag of URL event
+****************************************************/
+window.URL = window.URL || window.webkitURL;
+
+var dropbox;
+
+dropbox = document.getElementById("dropbox");
+dropbox.addEventListener("dragenter", dragenter, false);
+dropbox.addEventListener("dragover", dragover, false);
+dropbox.addEventListener("drop", drop, false);
+
+function dragenter(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function dragover(e) {
+  e.stopPropagation();
+  e.preventDefault();
+}
+
+function drop(e) {
+  e.stopPropagation();
+  e.preventDefault();
+
+  var dt = e.dataTransfer;
+  var files = dt.files;
+
+  handleFiles(files);
+}
+
+function handleFiles(files) {
+  if (!files.length) {
+    fileList.innerHTML = "<p>No files selected!</p>";
+  } else {
+    fileList.innerHTML = "";
+    var list = document.createElement("ul");
+    fileList.appendChild(list);
+    for (var i = 0; i < files.length; i++) {
+      var li = document.createElement("li");
+      list.appendChild(li);
+      
+      var img = document.createElement("img");
+      img.src = window.URL.createObjectURL(files[i]);
+      img.height = 60;
+      img.onload = function() {
+        window.URL.revokeObjectURL(this.src);
+      }
+      li.appendChild(img);
+      var info = document.createElement("span");
+      info.innerHTML = files[i].name + ": " + files[i].size + " bytes";
+      li.appendChild(info);
+    }
+  }
+}
+
+
+// var video = document.getElementById('video');
+// var blob = new Blob(['https://youtu.be/Yl3LBGJl_Zw'], {type: "video/mp4"});
+// var obj_url = window.URL.createObjectURL(blob);
+// video.src = obj_url;
+// video.play()
+// window.URL.revokeObjectURL(obj_url);
+
+
+/**************************************************
+Context menu
+****************************************************/
 
 var paraMenu = new nw.Menu();
 // Context sub-menu for paragraph styles
@@ -80,8 +149,9 @@ document.body.addEventListener('contextmenu', function(e) {
 
 
 
-// ========================= //
-// declare window menu
+/**************************************************
+Window menu
+****************************************************/
 var windowMenu = new nw.Menu({
   type: 'menubar'
 });
@@ -104,3 +174,47 @@ helpMenu.append(new nw.MenuItem({
     alert('I made this!');
   }
 }));
+
+
+
+/**************************************************
+Youtube search
+****************************************************/
+function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+
+$(function() {
+    $("form").on("submit", function(e) {
+       e.preventDefault();
+       // prepare the request
+       var request = gapi.client.youtube.search.list({
+            part: "snippet",
+            type: "video",
+            q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
+            maxResults: 3,
+            order: "viewCount",
+            publishedAfter: "2010-01-01T00:00:00Z"
+       }); 
+       // execute the request
+       request.execute(function(response) {
+          var results = response.result;
+          $("#results").html("");
+          $.each(results.items, function(index, item) {
+              $("#results").append('title: ' + item.snippet.title, "videoid " +  item.id.videoId);
+            });
+          });
+          resetVideoHeight();
+       });
+    
+    $(window).on("resize", resetVideoHeight);
+});
+
+function resetVideoHeight() {
+    $(".video").css("height", $("#results").width() * 9/16);
+}
+
+function init() {
+    gapi.client.setApiKey("AIzaSyB43aTG-cE39P6ZnaQ2v_pWWvgSVr1l73s");
+    gapi.client.load("youtube", "v3", function() {
+        // yt api is ready
+    });
+}
