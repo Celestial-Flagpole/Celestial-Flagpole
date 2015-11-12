@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,17 +8,47 @@
     <link rel="stylesheet" type="text/css" href="client/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="client/css/styles.css">
 </head>
-<header>
-  <ul>
-    <button class="btn btn-sm"><a href="#" title="Minimize" id="windowControlMinimize"></a>Min</buttton>
-    <button class="btn btn-sm"><a href="#" title="Maximize" id="windowControlMaximize"></a>Max</button>
-    <button class="btn btn-sm"><a href="#" title="Close" id="windowControlClose"></a>Close</buton>
-  </ul>
-</header>
   <body>
     <script>require('nw.gui').Window.get().showDevTools();</script>
+    <header>
+      <ul>
+        <button class="btn btn-sm"><a href="#" title="Minimize" id="windowControlMinimize"></a>Min</buttton>
+        <button class="btn btn-sm"><a href="#" title="Maximize" id="windowControlMaximize"></a>Max</button>
+        <button class="btn btn-sm"><a href="#" title="Close" id="windowControlClose"></a>Close</buton>
+      </ul>
+    </header>
+
     <h1> Floatie Screen!</h1>
 
     <script src="client/js/app.js"></script>
+      <script>
+      // ========================= //
+      // handling top bar user events
+      document.getElementById('windowControlMinimize').onclick = function () {
+        console.log('got here');
+        win.minimize();
+      };
+
+      document.getElementById('windowControlClose').onclick = function () {
+        win.close();
+      };
+
+      document.getElementById('windowControlMaximize').onclick = function () {
+        if (win.isMaximized) {
+          win.unmaximize();
+        } else {
+          win.maximize();
+        }
+      };
+
+      win.on('maximize', function() {
+        win.isMaximized = true;
+      });
+
+      win.on('unmaximize', function() {
+        win.isMaximized = false;
+      });
+
+    </script>
   </body>
 </html>
