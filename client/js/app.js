@@ -1,9 +1,14 @@
 var nw = require('nw.gui'); // require the nw module
+var win = nw.Window.get(); // Window object
 var util = require('util')
 var exec = require('child_process').exec;
-var os = require('os');
-var win = nw.Window.get();
-var platform = os.platform();
+var os = require('os'); // Operating system info
+var platform = os.platform(); // OS platform type
+var osType = os.EOL; // returns linux, darwin, win32, freebsd, sunos
+var fs = require('fs'); // File operations
+
+// https://nodejs.org/api/os.html
+
 win.isMaximized = false;
 
 // ========================= //
