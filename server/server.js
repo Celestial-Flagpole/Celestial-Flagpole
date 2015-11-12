@@ -12,7 +12,10 @@ var app = express();
 // });
 
 // Configure our server with all the middleware and routing
-require('./config/middleware.js')(app, express);
+//require('./config/middleware.js')(app, express);
+app.get('/', function(req, res){
+  res.end('hello world');
+});
 
 // Set up the port the server should listen to
 app.listen(process.env.PORT || 8686);
