@@ -10,6 +10,11 @@ Icon
 
 # Thumbnails
 ._*
+*.log
+
+# Compiled
+build/
+dist
 
 # Files that might appear on external disk
 .Spotlight-V100
