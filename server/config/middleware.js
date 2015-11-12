@@ -1,6 +1,6 @@
 var morgan = require('morgan'); // used for logging incoming request
 var bodyParser = require('body-parser'); // TODO: Confirm the use of raw body parser: https://github.com/expressjs/body-parser#bodyparserurlencodedoptions
-var helpers = require('./helpers.js'); // our custom middleware
+// var helpers = require('./helpers.js'); // our custom middleware
 
 
 module.exports = function (app, express) {
