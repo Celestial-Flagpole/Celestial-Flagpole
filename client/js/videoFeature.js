@@ -1,5 +1,6 @@
 var nw = require('nw.gui');
 var url = require('url-parse');
+var fs = require('fs');
 
 var win = nw.Window.get();
 
@@ -18,30 +19,44 @@ window.onload = function (){
   body.appendChild(fileDropDiv);
 
   fileDropDiv.addEventListener('dragover', function(evt) {
-    //console.log('dragover');
     evt.stopPropagation();
     evt.preventDefault();
   });
 
   fileDropDiv.addEventListener('drop', function(evt) {
-    console.log(evt.dataTransfer.files[0].path);
-    console.log(evt);
     evt.stopPropagation();
     evt.preventDefault();
+    //get the path to the file dropped 
+    var path = evt.dataTransfer.files[0].path;
+    //fs to read the file
+    fs.readFile(path, 'utf8', function(err, data){
+      if(err){
+        throw err;
+      }else{
+        fileDropDiv.innerHTML = data;
+      }
+    });
+
   });
 
-  fileDropDiv.addEventListener('dragenter', function(evt) {
-    console.log(evt.dataTransfer.getData("URL"));
-    evt.stopPropagation();
-    evt.preventDefault();
-  });
+  fileDropDiv.addEventListener('dragenter', playVideo);
 
-  fileDropDiv.addEventListener('dragend', function(evt) {
-    console.log('dragend');
-    console.log(evt);
+  var playVide = function(evt) {
     evt.stopPropagation();
     evt.preventDefault();
-  }, false);
+    var url = evt.dataTransfer.getData("URL");
+    if(url !== undefined){
+      fileDropDiv.innerHTML = "";
+      var video = document.createElement('video');
+      video.style.width = window.innerWidth;
+      video.style.height = window.innerHeight;
+      video.src = url;
+      video.autoPlay = true;
+      fileDropDiv.appendChild(video);
+    }
+
+  }
+
 
 };
 
