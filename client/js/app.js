@@ -9,10 +9,11 @@ var fs = require('fs'); // File operations
 
 // https://nodejs.org/api/os.html
 
+/**************************************************
+Handling Minimize, Maximize and Close window events 
+****************************************************/
 win.isMaximized = false;
 
-// ========================= //
-// handling top bar user events
 document.getElementById('windowControlMinimize').onclick = function () {
   win.minimize();
 };
@@ -37,8 +38,9 @@ win.on('unmaximize', function() {
   win.isMaximized = false;
 });
 
-// ========================= //
-// context menu
+/**************************************************
+Context menu
+****************************************************/
 
 var paraMenu = new nw.Menu();
 // Context sub-menu for paragraph styles
