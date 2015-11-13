@@ -40,7 +40,7 @@
     "express": "^4.13.3",
     "morgan": "^1.6.1",
     "walk": "^2.3.9",
-    "walker": "^1.0.7"
+    "walker": "^1.0.7",
     "url": "^0.11.0"
   },
   "devDependencies": {
