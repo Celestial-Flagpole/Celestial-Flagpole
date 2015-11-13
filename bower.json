@@ -1,0 +1,21 @@
+{
+  "name": "floatie",
+  "version": "1.0.0",
+  "authors": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib"
+  ],
+  "dependencies": {
+    "angular": "~1.3.16",
+    "angular-route": "~1.3.16",
+    "angular-mocks": "~1.3.16",
+    "bootstrap": "latest",
+    "bootstrap3-dialog": "latest",
+    "font-awesome": "latest",
+    "angular-ui-router": "~0.2.15",
+    "lodash": "~3.10.1"
+  }
+}
