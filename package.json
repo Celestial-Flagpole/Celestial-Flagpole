@@ -1,0 +1,47 @@
+{
+  "name": "celestialflagpole",
+  "version": "1.0.0",
+  "description": "Floating Screen",
+  "main": "index.html",
+  "window": {
+    "toolbar": false,
+    "title": "Floatie",
+    "resizable": true,
+    "height": 400,
+    "width": 600,
+    "min_width": 300,
+    "min_height": 200,
+    "position": "null",
+    "transparent": false,
+    "always-on-top": true,
+    "icon": "../../client/assets/button.png"
+  },
+  "webkit": {
+    "java": true
+  },
+  "scripts": {
+    "build": "nw ./Celestial-Flagpole",
+    "lint": "lint jscs ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "pre-commit": "lint",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Celestial-Flagpole/Celestial-Flagpole.git"
+  },
+  "author": "Preethi, Andres, Mike",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Celestial-Flagpole/Celestial-Flagpole/issues"
+  },
+  "homepage": "https://github.com/Celestial-Flagpole/Celestial-Flagpole#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "node-webkit-builder": "^1.0.13"
+  }
+}
