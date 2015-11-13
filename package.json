@@ -13,6 +13,7 @@
     "min_height": 200,
     "position": "null",
     "transparent": false,
+    "always-on-top": true,
     "icon": "../../client/assets/button.png"
   },
   "webkit": {
@@ -40,6 +41,7 @@
     "morgan": "^1.6.1",
     "walk": "^2.3.9",
     "walker": "^1.0.7"
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "node-webkit-builder": "^1.0.13"
