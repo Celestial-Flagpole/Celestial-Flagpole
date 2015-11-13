@@ -40,10 +40,15 @@ header>ul>li>a:focus{
     }
 a#windowControlClose{
     background-position: -44px 0;
-    }
+}
 a#windowControlMaximize{
     background-position: -22px 0;
-    }
+}
 a#windowControlMinimize{
     background-position: 0 0;
-    }
+}
+
+#fileDrop {
+    width: 700px;
+    height: 300px;
+}
