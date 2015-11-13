@@ -12,6 +12,7 @@ header{
 
 body {
     margin: 3px;
+    background-color:rgba(0,0,0,0);"
 }
 /*Window Controls*/
 header>ul{
@@ -51,4 +52,12 @@ a#windowControlMinimize{
     background-position: 0 0
 }
 
+#fileDropDiv{
+    position: relative;
+    z-index: 50;
+}
+
+iframe{
+    position: relative;
+}
 
