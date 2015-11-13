@@ -12,6 +12,10 @@ var fs = require('fs'); // File operations
 /**************************************************
 Handling Minimize, Maximize and Close window events 
 ****************************************************/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 22c360076b91b0ab496afe6da60f3ca1e98a5796
 win.isMaximized = false;
 
 document.getElementById('windowControlMinimize').onclick = function () {
@@ -38,6 +42,10 @@ win.on('unmaximize', function() {
   win.isMaximized = false;
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 22c360076b91b0ab496afe6da60f3ca1e98a5796
 /**************************************************
 Context menu
 ****************************************************/
@@ -81,9 +89,9 @@ document.body.addEventListener('contextmenu', function(e) {
 });
 
 
-
-// ========================= //
-// declare window menu
+/**************************************************
+Window menu
+****************************************************/
 var windowMenu = new nw.Menu({
   type: 'menubar'
 });
@@ -95,14 +103,109 @@ var helpMenu = new nw.Menu();
 
 // Add to window menu
 windowMenu.append(new nw.MenuItem({
-  label: 'help',
+  label: 'Help',
   submenu: helpMenu
 }));
 
 // About sub-entry
 helpMenu.append(new nw.MenuItem({
-  label: 'about',
+  label: 'About',
+  cssClass: 'about',
   click: function () {
-    alert('I made this!');
+    BootstrapDialog.show({
+        message: function(dialog) {
+            var $message = $('<div class="about"></div>');
+            var pageToLoad = dialog.getData('pageToLoad');
+            $message.load(pageToLoad);
+    
+            return $message;
+        },
+        data: {
+            'pageToLoad': 'client/html/about.html'
+        }
+    });
   }
 }));
+
+nw.Window.get().menu = windowMenu;
+
+// Go To menu
+
+var goToMenu = new nw.Menu();
+
+// Add to window menu
+windowMenu.append(new nw.MenuItem({
+  label: 'Go to',
+  submenu: goToMenu
+}));
+
+// About sub-entry
+goToMenu.append(new nw.MenuItem({
+  label: 'URL',
+  cssClass: 'goto',
+  click: function () {
+    BootstrapDialog.show({
+        message: function(dialog) {
+            var $message = $('<div class="about"></div>');
+            var pageToLoad = dialog.getData('pageToLoad');
+            $message.load(pageToLoad);
+    
+            return $message;
+        },
+        data: {
+            'pageToLoad': 'client/html/temp.html'
+        }
+    });
+  }
+}));
+
+nw.Window.get().menu = windowMenu;
+
+// https://nakupanda.github.io/bootstrap3-dialog/
+/**************************************************
+Youtube search
+****************************************************/
+
+function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+
+$(function() {
+    $("form").on("keyup", function (e) {
+       e.preventDefault();
+       // prepare the request
+       if ($('#search').val() === '') {
+        $('#results').html("");
+       } else {
+           var request = gapi.client.youtube.search.list({
+                part: "snippet",
+                type: "video",
+                q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
+                maxResults: 10,
+                videoEmbeddable: true,
+                order: "viewCount",
+                publishedAfter: "2000-01-01T00:00:00Z"
+           }); 
+           // execute the request
+           request.execute(function (response) {
+              var results = response.result;
+              $("#results").html("");
+              $.each(results.items, function(index, item) {
+                  $("#results").append('<span>' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title, " Videoid: " +  item.id.videoId + '</br></span>');
+                });
+              });
+              resetVideoHeight();
+        
+        $(window).on("resize", resetVideoHeight);
+       }
+    });
+});
+
+function resetVideoHeight () {
+    $(".video").css("height", $("#results").width() * 9/16);
+}
+
+function init () {
+    gapi.client.setApiKey("AIzaSyB43aTG-cE39P6ZnaQ2v_pWWvgSVr1l73s");
+    gapi.client.load("youtube", "v3", function() {
+        // yt api is ready
+    });
+}
