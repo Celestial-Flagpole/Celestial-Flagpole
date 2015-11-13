@@ -226,12 +226,12 @@ $(function() {
             crossDomain: true,
             contentType: 'application/json',
             success: function (data) {
-               $("#results").html("");
+               $("#resultsfs").html("");
                if (data.length === undefined) {
                 return; 
                } else {
                  $.each(data, function(index, item) {
-                     $("#results").append('<span>' + item + '</span>');
+                     $("#resultsfs").append('<a><span>' + item.file + '</span></a></br>');
                    });
                }
             },
