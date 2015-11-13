@@ -169,7 +169,7 @@ Youtube search
 function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
 
 $(function() {
-    $("form").on("keyup", function (e) {
+    $("#youtube").on("keyup", function (e) {
        e.preventDefault();
        // prepare the request
        if ($('#search').val() === '') {
@@ -209,3 +209,43 @@ function init () {
         // yt api is ready
     });
 }
+
+
+/**************************************************
+User file directory search
+****************************************************/
+
+$(function() {
+    $("#filesystem").on("submit", function (e) {
+       e.preventDefault();
+       // prepare the request
+       if ($('#searchfs').val() === '') {
+        $('#resultsfs').html("");
+       } else {
+          var query = $('#searchfs').val(); 
+          console.log('query: ' + query)
+
+           $.ajax({
+            url: 'http://127.0.0.1:8686/api/float/',
+            type: 'GET',
+            data: query,
+            crossDomain: true,
+            contentType: 'application/json',
+            success: function (data) {
+               $("#results").html("");
+               if (data.length === undefined) {
+                return; 
+               } else {
+                 $.each(data, function(index, item) {
+                     $("#results").append('<span>' + item + '</span>');
+                   });
+               }
+            },
+            error: function (data) {
+              console.error('failed');
+            }
+           });
+       }
+    });
+});
+
