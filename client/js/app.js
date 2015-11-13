@@ -39,71 +39,6 @@ win.on('unmaximize', function() {
   win.isMaximized = false;
 });
 
-/**************************************************
-Handling user drag of URL event
-****************************************************/
-window.URL = window.URL || window.webkitURL;
-
-var dropbox;
-
-dropbox = document.getElementById("dropbox");
-dropbox.addEventListener("dragenter", dragenter, false);
-dropbox.addEventListener("dragover", dragover, false);
-dropbox.addEventListener("drop", drop, false);
-
-function dragenter(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-
-function dragover(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-
-function drop(e) {
-  e.stopPropagation();
-  e.preventDefault();
-
-  var dt = e.dataTransfer;
-  var files = dt.files;
-
-  handleFiles(files);
-}
-
-function handleFiles(files) {
-  if (!files.length) {
-    fileList.innerHTML = "<p>No files selected!</p>";
-  } else {
-    fileList.innerHTML = "";
-    var list = document.createElement("ul");
-    fileList.appendChild(list);
-    for (var i = 0; i < files.length; i++) {
-      var li = document.createElement("li");
-      list.appendChild(li);
-      
-      var img = document.createElement("img");
-      img.src = window.URL.createObjectURL(files[i]);
-      img.height = 60;
-      img.onload = function() {
-        window.URL.revokeObjectURL(this.src);
-      }
-      li.appendChild(img);
-      var info = document.createElement("span");
-      info.innerHTML = files[i].name + ": " + files[i].size + " bytes";
-      li.appendChild(info);
-    }
-  }
-}
-
-
-// var video = document.getElementById('video');
-// var blob = new Blob(['https://youtu.be/Yl3LBGJl_Zw'], {type: "video/mp4"});
-// var obj_url = window.URL.createObjectURL(blob);
-// video.src = obj_url;
-// video.play()
-// window.URL.revokeObjectURL(obj_url);
-
 
 /**************************************************
 Context menu
@@ -148,7 +83,6 @@ document.body.addEventListener('contextmenu', function(e) {
 });
 
 
-
 /**************************************************
 Window menu
 ****************************************************/
@@ -163,27 +97,73 @@ var helpMenu = new nw.Menu();
 
 // Add to window menu
 windowMenu.append(new nw.MenuItem({
-  label: 'help',
+  label: 'Help',
   submenu: helpMenu
 }));
 
 // About sub-entry
 helpMenu.append(new nw.MenuItem({
-  label: 'about',
+  label: 'About',
+  cssClass: 'about',
   click: function () {
-    alert('I made this!');
+    BootstrapDialog.show({
+        message: function(dialog) {
+            var $message = $('<div class="about"></div>');
+            var pageToLoad = dialog.getData('pageToLoad');
+            $message.load(pageToLoad);
+    
+            return $message;
+        },
+        data: {
+            'pageToLoad': 'client/html/about.html'
+        }
+    });
   }
 }));
 
+nw.Window.get().menu = windowMenu;
 
+// Go To menu
 
+var goToMenu = new nw.Menu();
+
+// Add to window menu
+windowMenu.append(new nw.MenuItem({
+  label: 'Go to',
+  submenu: goToMenu
+}));
+
+// About sub-entry
+goToMenu.append(new nw.MenuItem({
+  label: 'URL',
+  cssClass: 'goto',
+  click: function () {
+    BootstrapDialog.show({
+        message: function(dialog) {
+            var $message = $('<div class="about"></div>');
+            var pageToLoad = dialog.getData('pageToLoad');
+            $message.load(pageToLoad);
+    
+            return $message;
+        },
+        data: {
+            'pageToLoad': 'client/html/temp.html'
+        }
+    });
+  }
+}));
+
+nw.Window.get().menu = windowMenu;
+
+// https://nakupanda.github.io/bootstrap3-dialog/
 /**************************************************
 Youtube search
 ****************************************************/
+
 function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
 
 $(function() {
-    $("form").on("keyup", function(e) {
+    $("form").on("keyup", function (e) {
        e.preventDefault();
        // prepare the request
        if ($('#search').val() === '') {
@@ -194,15 +174,16 @@ $(function() {
                 type: "video",
                 q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
                 maxResults: 10,
+                videoEmbeddable: true,
                 order: "viewCount",
-                publishedAfter: "2010-01-01T00:00:00Z"
+                publishedAfter: "2000-01-01T00:00:00Z"
            }); 
            // execute the request
-           request.execute(function(response) {
+           request.execute(function (response) {
               var results = response.result;
               $("#results").html("");
               $.each(results.items, function(index, item) {
-                  $("#results").append('<span>' + 'title: ' + item.snippet.title, "videoid " +  item.id.videoId+ '</br></span>');
+                  $("#results").append('<span>' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title, " Videoid: " +  item.id.videoId + '</br></span>');
                 });
               });
               resetVideoHeight();
@@ -212,14 +193,13 @@ $(function() {
     });
 });
 
-function resetVideoHeight() {
+function resetVideoHeight () {
     $(".video").css("height", $("#results").width() * 9/16);
 }
 
-function init() {
+function init () {
     gapi.client.setApiKey("AIzaSyB43aTG-cE39P6ZnaQ2v_pWWvgSVr1l73s");
     gapi.client.load("youtube", "v3", function() {
         // yt api is ready
     });
 }
-
