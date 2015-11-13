@@ -5,14 +5,13 @@
   "main": "index.html",
   "window": {
     "toolbar": false,
+    "frame": false,
     "title": "Floatie",
     "resizable": true,
     "height": 400,
     "width": 600,
     "min_width": 300,
     "min_height": 200,
-    "position": "null",
-    "transparent": false,
     "always-on-top": true,
     "icon": "../../client/assets/button.png"
   },
@@ -39,7 +38,10 @@
     "angular": "^1.4.7",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
+    "lazy": "^1.0.11",
     "morgan": "^1.6.1",
+    "nw": "^0.12.3",
+    "url": "^0.11.0",
     "url": "^0.11.0",
     "walk": "^2.3.9",
     "walker": "^1.0.7"
