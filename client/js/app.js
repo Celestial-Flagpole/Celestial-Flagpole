@@ -12,10 +12,7 @@ var fs = require('fs'); // File operations
 /**************************************************
 Handling Minimize, Maximize and Close window events 
 ****************************************************/
-<<<<<<< HEAD
-=======
 
->>>>>>> 22c360076b91b0ab496afe6da60f3ca1e98a5796
 win.isMaximized = false;
 
 document.getElementById('windowControlMinimize').onclick = function () {
@@ -42,10 +39,6 @@ win.on('unmaximize', function() {
   win.isMaximized = false;
 });
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 22c360076b91b0ab496afe6da60f3ca1e98a5796
 /**************************************************
 Context menu
 ****************************************************/
