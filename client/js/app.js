@@ -204,8 +204,10 @@ function init () {
     });
 }
 
-var option = {
-  key : "Ctrl+Shift+M",
+//shortcut to minimize
+var minimize = {
+  //ctrl is cmd in OSX
+  key : "Ctrl+Shift+Down",
   active : function() {
     console.log("Global desktop keyboard shortcut: " + this.key + " active.");
     win.minimize();
@@ -216,8 +218,24 @@ var option = {
   }
 };
 
-var shortcut = new nw.Shortcut(option);
-nw.App.registerGlobalHotKey(shortcut);
+var maximize = {
+  //ctrl is cmd in OSX
+  key : "Ctrl+Shift+Up",
+  active : function() {
+    console.log("Global desktop keyboard shortcut: " + this.key + " active.");
+    win.restore();
+  },
+  failed : function(msg) {
+    // :(, fail to register the |key| or couldn't parse the |key|.
+    console.log(msg);
+  }
+};
+
+//register the shortcuts
+var minShortcut = new nw.Shortcut(minimize);
+nw.App.registerGlobalHotKey(minShortcut);
+var maxShortcut = new nw.Shortcut(maximize);
+nw.App.registerGlobalHotKey(maxShortcut);
 
 // var body = document.body;
 // var fileDropDiv = document.createElement('div');
