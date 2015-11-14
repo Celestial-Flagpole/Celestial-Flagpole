@@ -71,7 +71,12 @@ window.onload = function (){
     }
   };
 
-
+  var searchPlayVideo = function (videoId) {
+    removePTags();
+    document.getElementById("player").style.width="600px";
+    document.getElementById("player").style.height="300px";
+    player.loadVideoById({videoId: videoId});
+  };
 
   fileDropDiv.addEventListener('dragover', function(evt) {
     eventMethods(evt);
@@ -84,6 +89,13 @@ window.onload = function (){
     eventMethods(evt);
     //get the path to the file dropped 
     var path = evt.dataTransfer.files[0].path;
+    readFile(path);
+  });
+
+  //this event listener handles videos.
+  fileDropDiv.addEventListener('dragenter', playVideo);
+
+  var readFile = function(path) {
     new lazy(fs.createReadStream(path))
          .lines
          .forEach(function(line){
@@ -93,13 +105,8 @@ window.onload = function (){
             var text = document.createTextNode(line.toString());
             p.appendChild(text);
             fileDropDiv.appendChild(p);
-         }
-    );
-
-  });
-
-  //this event listener handles videos.
-  fileDropDiv.addEventListener('dragenter', playVideo);
+         });
+  };
 
   var removePTags = function() {
     var div = document.getElementById('fileDrop');
@@ -112,5 +119,8 @@ window.onload = function (){
 
   };
 
+global.searchPlayVideo = searchPlayVideo;
+global.readFile = readFile;
 };
+
 

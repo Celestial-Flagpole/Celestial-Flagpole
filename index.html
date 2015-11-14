@@ -22,12 +22,22 @@
      <script src="client/js/videoFeature.js"></script>-->
 
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <form action="#">
+        <div class="col-md-3">
+            <form id="youtube" action="#">
                 <p><input type="text" id="search" placeholder="Search for a video..." autocomplete="off" class="form-control" /></p>
                 <p><input type="submit" value="Search" class="btn btn-danger"></p>
             </form>
             <div id="results"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <form id="filesystem" action="#">
+                <p><input type="text" id="searchfs" placeholder="Search for a file..." autocomplete="off" class="form-control" /></p>
+                <p><input type="submit" value="Search" class="btn btn-danger"></p>
+            </form>
+            <div id="resultsfs"></div>
         </div>
     </div>
 
@@ -36,10 +46,12 @@
     <script src="client/lib/jquery/dist/jquery.min.js"></script> 
     <script src="client/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="client/lib/bootstrap3-dialog/src/js/bootstrap-dialog.js"></script>
+    <script src="client/js/videoFeature.js"></script>
+    <script src="client/js/app.js"></script>
     <script src="https://apis.google.com/js/client.js?onload=init"></script>
     <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
-    <script src="client/js/app.js"></script>
-    <script src="client/js/videoFeature.js"></script>
+    
+    
 
     
   </body>
