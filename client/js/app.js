@@ -40,6 +40,7 @@ win.on('unmaximize', function() {
   win.isMaximized = false;
 });
 
+
 /**************************************************
 Context menu
 ****************************************************/
@@ -169,6 +170,7 @@ $(function() {
        if ($('#search').val() === '') {
         $('#results').html("");
        } else {
+        console.log('key up')
            var request = gapi.client.youtube.search.list({
                 part: "snippet",
                 type: "video",
@@ -183,15 +185,22 @@ $(function() {
               var results = response.result;
               $("#results").html("");
               $.each(results.items, function(index, item) {
-                  $("#results").append('<span>' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title, " Videoid: " +  item.id.videoId + '</br></span>');
+                var videoId = item.snippet.videoId;
+                  $("#results").append('<span onclick="searchPlayVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
                 });
               });
               resetVideoHeight();
         
         $(window).on("resize", resetVideoHeight);
        }
+
     });
 });
+
+function searchPlayVideo (videoId) {
+  console.log('I ran!' + videoId);
+  global.searchPlayVideo(videoId);
+}
 
 function resetVideoHeight () {
     $(".video").css("height", $("#results").width() * 9/16);
@@ -231,7 +240,7 @@ $(function() {
                 return; 
                } else {
                  $.each(data, function(index, item) {
-                     $("#resultsfs").append('<a><span>' + item.file + '</span></a></br>');
+                     $("#resultsfs").append('<a><span onclick="readFile(\''+item.file+'\')">' + item.file + '</span></a></br>');
                    });
                }
             },
@@ -243,6 +252,9 @@ $(function() {
     });
 });
 
+function readFile (path) {
+  global.readFile(path);
+}
 
 var minimize = {
   //ctrl is cmd in OSX
