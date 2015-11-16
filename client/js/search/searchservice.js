@@ -28,22 +28,20 @@ angular.module('floatie.services.search', [])
       deferred.resolve(results);
     });
 
-    return deferred.promise; 
+    return deferred.promise;
   };
 
   service.loadFileBySearch = function (filesearchQuery) {
     // API request to back-end to do a walk on the user's entire file directory
-    return $http({
-      method: 'GET',
-      url: 'http://127.0.0.1:8686/api/float/' + filesearchQuery
-    })
-    .then(function successCallback (resp) {
-      console.log('got here')
-      console.log(resp)
-      return resp;
-    }, function errCallback (resp) {
-      console.error('i errored');
+
+    var deferred = $q.defer();
+    var url = 'http://localhost:8686/api/float/' + filesearchQuery;
+    $http.get(url).then(function(data) {
+      deferred.resolve(data);
     });
+
+    return deferred.promise;
+
   };
 
 });
