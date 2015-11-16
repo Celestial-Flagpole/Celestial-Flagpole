@@ -27,7 +27,7 @@ angular.module('floatie.services.video', [])
       player.loadVideoById({videoId: videoId});
 
       //read and load the file
-    }else {
+    } else {
       this.file.length = 0;
       this.loadFile(evt);
     }
@@ -58,6 +58,8 @@ angular.module('floatie.services.video', [])
             });
           });
   };
+
+});
 
 // angular.module('floatie.services.video', [])
 // .service('VideoService', function ($http, $q) {
