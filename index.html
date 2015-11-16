@@ -12,10 +12,10 @@
   <body style="background-color: transparent;">
     <script>require('nw.gui').Window.get().showDevTools();</script>
     <header>
-      <ul>
-        <a href="#" title="Minimize" id="windowControlMinimize">Min</a>
-        <a href="#" title="Maximize" id="windowControlMaximize">Max</a>
-        <a href="#" title="Close" id="windowControlClose">Close</a>
+      <ul class="windowControls">
+        <button title="Minimize" id="windowControlMinimize"></button>
+        <button title="Maximize" id="windowControlMaximize"></button>
+        <button title="Close" id="windowControlClose"></button>
       </ul>
     </header>
     <div ui-view='search'></div>
@@ -25,6 +25,7 @@
       window.ondragover = function(e) { e.preventDefault(); return false; };
       window.ondragenter = function(e) { e.preventDefault(); return false; };
       window.ondrop = function(e) { e.preventDefault(); return false; };
+
     </script>
     <script src="client/lib/angular/angular.js"></script>
     <script src="client/lib/angular-ui-router/release/angular-ui-router.js"></script>

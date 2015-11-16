@@ -1,55 +1,76 @@
 @charset "UTF-8";
 
 /*Title Bar*/
-header{
+header {
     width:         100%;
     height:         20px;
-    background:    -webkit-linear-gradient(top, rgb(255,255,255) 0, rgb(225,225,225) 100%);
-    border-bottom: 2px solid rgb(205,205,205);
+    background:    -webkit-linear-gradient(top, #253237, #253237 100%);
+    border-bottom: 1px solid #242423;
     -webkit-app-region: drag;
     -webkit-user-select: none;
-    }
+}
 
 body {
-    margin: 3px;
-    background-color:rgba(0,0,0,0);"
+    overflow-x: hidden;
 }
 /*Window Controls*/
-header>ul{
-    float:        right;
-    text-align:   right;
+header>ul {
+    float:        left;
+    text-align:   left;
     line-height:  0;
-    padding-left: 6px;
-    }
-header>ul>li,
-header>ul>li>a{
+    padding-right: 6px;
+}
+
+header>ul>,
+header>ul>>a {
     display: inline-block;
-    }
-header>ul{
+}
+
+header>ul {
     float: right;
-    }
-header>ul>li>a{
-    width:              22px;
-    height:             22px;
-    margin:              6px 6px 6px 0;
-    background-image:   url('../../assets/icons.svg');
-    background-repeat:  no-repeat;
+}
+
+header>ul>a {
+    margin: 3px 6px 6px 0;
     -webkit-transition: -webkit-transform 200ms;
     -webkit-app-region: no-drag;
-    }
-header>ul>li>a:hover,
-header>ul>li>a:focus{
+}
+
+header>ul>a:hover,
+header>ul>>a:focus {
     -webkit-transform:  scale(1.22,1.22);
     outline:            none;
-    }
-a#windowControlClose{
-    background-position: -44px 0;
 }
-a#windowControlMaximize{
-    background-position: -22px 0;
+
+#windowControlClose {
+    background-color: #95190C;
+    height: 11px;
+    width: 11px;
+    padding-right: 5px;
+    margin-bottom: 5px;
+    border: none;
 }
-a#windowControlMinimize{
-    background-position: 0 0
+
+#windowControlMaximize{ 
+    background-color: #E3B505;
+    height: 11px;
+    width: 11px;
+    padding-right: 5px;
+    margin-bottom: 5px;
+    border: none;
+}
+
+#windowControlMinimize {
+    background-color: #53A548;
+    height: 11px;
+    width: 11px;
+    padding-right: 5px;
+    margin-bottom: 5px;
+    border: none;
+}
+
+.windowControls {
+    margin-top: 5px;
 }
 
 #dropZone {
@@ -66,7 +87,22 @@ a#windowControlMinimize{
 
 iframe {
     float: none;
-    position: relative;
-    z-index: -1;
+    /*position: relative;*/
+    z-index: -1px;
+    height: 400px,
+    width: 600px,
+    margin: 0px;
+    padding: 0px;
 }
 
+.search-top {
+    border-bottom: 1px black;
+}
+
+.btn-sm {
+    margin: 2px 2px 2px 2px;
+}
+
+.input-group {
+    margin: 2px;
+}

@@ -1,32 +1,37 @@
-<div class="row">
-    <div class="col-md-3">
-        <form ng-keyup="searchController.searchYoutube()" action="#">
-            <p><input type="text" id="search" ng-model="searchController.youtubeQuery" placeholder="Search for a video..." autocomplete="off" class="form-control" /></p>
-            <p><input type="submit" value="Search" class="btn btn-danger"></p>
-        </form>
-        <div ng-show="searchController.showResults()" ng-repeat="result in searchController.youtubeResults">
-            <div class="snippet">
-                <span ng-click="searchController.playVideo(result.id.videoId)">
-                    <img src="{{ result.snippet.thumbnails.default.url}}"/>
-                    {{ result.snippet.title }}
+<div class="row ">
+    <div class="col-lg-12">
+        <div class="input-group">
+            <form ng-keyup="searchController.searchYoutube()" action="#">
+                <input type="text" id="search" ng-model="searchController.youtubeQuery" placeholder="Search for a video..." autocomplete="off" class="form-control" />
+                <span class="input-group-btn">
                 </span>
-            </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="input-group">
+            <form ng-submit="searchController.searchFiles()" action="#">
+                <input type="text" id="search" ng-model="searchController.filesearchQuery" placeholder="Search for a file..." autocomplete="off" class="form-control" />
+                <span class="input-group-btn">
+                    <button type="button" value="File" class="btn-danger btn-sm">Search</button>
+                </span>
+            </form>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-3">
-        <form ng-submit="searchController.searchFiles()" action="#">
-            <p><input type="text" id="search" ng-model="searchController.filesearchQuery" placeholder="Search for a file..." autocomplete="off" class="form-control" /></p>
-            <p><input type="submit" value="File" class="btn btn-danger"></p>
-        </form>
-        <div ng-show="searchController.showResultsForFile()" ng-repeat="result in searchController.filesearchResults">
-            <div class="snippet">
-                <span >
-                    {{ result.file }}
-                </span>
-            </div>
-        </div>
+<div class="col-lg-12" ng-show="searchController.showResults()" ng-repeat="result in searchController.youtubeResults">
+    <div class="snippet">
+        <span ng-click="searchController.playVideo(result.id.videoId)">
+            <img src="{{ result.snippet.thumbnails.default.url}}"/>
+            {{ result.snippet.title }}
+        </span>
+    </div>
+</div>
+<div ng-show="searchController.showResultsForFile()" ng-repeat="result in searchController.filesearchResults">
+    <div class="snippet">
+        <span >
+            {{ result.file }}
+        </span>
     </div>
 </div>

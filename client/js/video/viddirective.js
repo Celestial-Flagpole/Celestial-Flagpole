@@ -20,8 +20,8 @@ angular.module('youtubeApp', [])
         //https://developers.google.com/youtube/iframe_api_reference?hl=en
         $window.onYouTubeIframeAPIReady = function () {
           player = new YT.Player(element.children()[0], {
-            height: $window.innerHeight - 70 + "px",
-            width: $window.innerWidth - 15 + "px",
+            height: $window.innerHeight - 50 + "px",
+            width: $window.innerWidth - 2 + "px",
             events: {
               'onReady': onPlayerReady
             }
