@@ -59,6 +59,7 @@ var win = nw.Window.get();
 //     var videoUrl = evt.dataTransfer.getData("URL");
 //     console.log(videoUrl);
     
+
 //     if(videoUrl !== ""){
 //       removePTags();
 //       document.getElementById("player").style.width="600px";
@@ -123,5 +124,4 @@ var win = nw.Window.get();
 //   global.playSearchVideo = playSearchVideo;
 
 // };
-
 

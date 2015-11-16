@@ -1,6 +1,6 @@
-# Project Name
+# Floatie
 
-> Pithy project description
+> Floatie is a floating browser window that you can stick anywhere on your screen and watch movies, tutorial videos or even read files from your local system. As developers ourselves, we watch a ton of youtube videos and tutorials and code along side. But we got tired of trying to squeeze the browser window into one corner and our text editor into another. This floating screen helps us watch our tutorials and code at the same time, with a lot more screen space. 
 
 ## Team
 
@@ -20,15 +20,14 @@
 
 ## Usage
 
-> Some usage instructions
+> Floatie is built using Node webkit (nw.js). nw.js is an app runtime based on Chromium and io.js for building desktop applications that will run on OSX, Windows and Linux. You can read more about it here (https://github.com/nwjs/npm-installer).
+To begin using floatie, first download the app and launch it. To watch a video, drag a url onto the screen. To view a file, drag a file onto the screen. There's also two search bars available: One for searching youtube videos and another for searching for files in your local system. You can click on these search results to view them in the floatie screen. That's it!
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node
+- Node webkit
+- Angular
 
 ## Development
 
@@ -37,15 +36,15 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
+npm install -g bower
+npm install -g nw
 npm install
 bower install
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+View the project roadmap [https://github.com/Celestial-Flagpole/Celestial-Flagpole/issues](LINK_TO_PROJECT_ISSUES)
 
 ## Contributing
 
