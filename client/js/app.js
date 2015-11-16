@@ -160,42 +160,47 @@ nw.Window.get().menu = windowMenu;
 Youtube search
 ****************************************************/
 
-function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+// function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
 
-$(function() {
-    $("#youtube").on("keyup", function (e) {
-       e.preventDefault();
-       // prepare the request
-       if ($('#search').val() === '') {
-        $('#results').html("");
-       } else {
-           var request = gapi.client.youtube.search.list({
-                part: "snippet",
-                type: "video",
-                q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
-                maxResults: 10,
-                videoEmbeddable: true,
-                order: "viewCount",
-                publishedAfter: "2000-01-01T00:00:00Z"
-           }); 
-           // execute the request
-           request.execute(function (response) {
-              var results = response.result;
-              $("#results").html("");
-              $.each(results.items, function(index, item) {
-                  $("#results").append('<span>' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title, " Videoid: " +  item.id.videoId + '</br></span>');
-                });
-              });
-              resetVideoHeight();
+// $(function() {
+//     $("#youtube").on("keyup", function (e) {
+//        e.preventDefault();
+//        // prepare the request
+//        if ($('#search').val() === '') {
+//         $('#results').html("");
+//        } else {
+//            var request = gapi.client.youtube.search.list({
+//                 part: "snippet",
+//                 type: "video",
+//                 q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
+//                 maxResults: 10,
+//                 videoEmbeddable: true,
+//                 order: "viewCount",
+//                 publishedAfter: "2000-01-01T00:00:00Z"
+//            }); 
+//            // execute the request
+//            request.execute(function (response) {
+//               var results = response.result;
+//               $("#results").html("");
+//               $.each(results.items, function(index, item) {
+//                   $("#results").append('<span onclick="searchVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
+//                 });
+//               });
+//               resetVideoHeight();
         
-        $(window).on("resize", resetVideoHeight);
-       }
-    });
-});
+//         $(window).on("resize", resetVideoHeight);
+//        }
+//     });
+// });
 
-function resetVideoHeight () {
-    $(".video").css("height", $("#results").width() * 9/16);
-}
+// function searchVideo (id) {
+//   console.log(id);
+//   global.playSearchVideo(id);
+// }
+
+// function resetVideoHeight () {
+//     $(".video").css("height", $("#results").width() * 9/16);
+// }
 
 function init () {
     gapi.client.setApiKey("AIzaSyB43aTG-cE39P6ZnaQ2v_pWWvgSVr1l73s");
@@ -209,46 +214,45 @@ function init () {
 User file directory search
 ****************************************************/
 
-$(function() {
-    $("#filesystem").on("submit", function (e) {
-       e.preventDefault();
-       // prepare the request
-       if ($('#searchfs').val() === '') {
-        $('#resultsfs').html("");
-       } else {
-          var query = $('#searchfs').val(); 
-          console.log('query: ' + query)
+// $(function() {
+//     $("#filesystem").on("submit", function (e) {
+//        e.preventDefault();
+//        // prepare the request
+//        if ($('#searchfs').val() === '') {
+//         $('#resultsfs').html("");
+//        } else {
+//           var query = $('#searchfs').val(); 
+//           console.log('query: ' + query)
 
-           $.ajax({
-            url: 'http://127.0.0.1:8686/api/float/',
-            type: 'GET',
-            data: query,
-            crossDomain: true,
-            contentType: 'application/json',
-            success: function (data) {
-               $("#resultsfs").html("");
-               if (data.length === undefined) {
-                return; 
-               } else {
-                 $.each(data, function(index, item) {
-                     $("#resultsfs").append('<a><span>' + item.file + '</span></a></br>');
-                   });
-               }
-            },
-            error: function (data) {
-              console.error('failed');
-            }
-           });
-       }
-    });
-});
+//            $.ajax({
+//             url: 'http://127.0.0.1:8686/api/float/',
+//             type: 'GET',
+//             data: query,
+//             crossDomain: true,
+//             contentType: 'application/json',
+//             success: function (data) {
+//                $("#resultsfs").html("");
+//                if (data.length === undefined) {
+//                 return; 
+//                } else {
+//                  $.each(data, function(index, item) {
+//                      $("#resultsfs").append('<a><span>' + item.file + '</span></a></br>');
+//                    });
+//                }
+//             },
+//             error: function (data) {
+//               console.error('failed');
+//             }
+//            });
+//        }
+//     });
+// });
 
-
+//create shortcut to minimize the window
 var minimize = {
   //ctrl is cmd in OSX
   key : "Ctrl+Shift+Down",
   active : function() {
-    console.log("Global desktop keyboard shortcut: " + this.key + " active.");
     win.minimize();
   },
   failed : function(msg) {
@@ -257,11 +261,11 @@ var minimize = {
   }
 };
 
+//create shortcut to maximize the window
 var maximize = {
   //ctrl is cmd in OSX
   key : "Ctrl+Shift+Up",
   active : function() {
-    console.log("Global desktop keyboard shortcut: " + this.key + " active.");
     win.restore();
   },
   failed : function(msg) {
@@ -270,11 +274,22 @@ var maximize = {
   }
 };
 
+var close = {
+  //ctrl is cmd in OSX
+  key : "Ctrl+Shift+C",
+  active : function() {
+    win.close();
+  },
+  failed : function(msg) {
+    // :(, fail to register the |key| or couldn't parse the |key|.
+    console.log(msg);
+  }
+};
+
 //register the shortcuts
-var minShortcut = new nw.Shortcut(minimize);
-nw.App.registerGlobalHotKey(minShortcut);
-var maxShortcut = new nw.Shortcut(maximize);
-nw.App.registerGlobalHotKey(maxShortcut);
+nw.App.registerGlobalHotKey(new nw.Shortcut(minimize));
+nw.App.registerGlobalHotKey(new nw.Shortcut(maximize));
+nw.App.registerGlobalHotKey(new nw.Shortcut(close));
 
 
 

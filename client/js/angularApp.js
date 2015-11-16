@@ -1,9 +1,10 @@
 angular.module('floatie', [
   'ui.router',
   'video',
-  'search',
+  'youtubeApp',
+  // 'search',
   'floatie.services.video',
-  'floatie.services.search',
+  // 'floatie.services.search',
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -13,16 +14,24 @@ angular.module('floatie', [
     })
     .state('video', {
       url: '/',
-      templateUrl: 'video/vidview.html',
-      controller: 'VideoController',
-      controllerAs: 'video'
-    })
-    .state('search', {
-      url: '/search',
-      templateUrl: 'search/searchview.html',
-      controller: 'SearchController',
-      controllerAs: 'search'
-    })
+      views: {
+        // 'search@': {
+        //   templateUrl: 'client/js/search/searchview.html',
+        //   controller: 'SearchController',
+        //   controllerAs: 'searchController'
+        // },
+        'video@': {
+          templateUrl: 'client/js/video/vidview.html',
+          controller: 'VideoController',
+          controllerAs: 'videoController'
+        }
+      }
+    });
+    // .state('video', {
+    //   url: '/',
+    //   templateUrl: 'client/js/video/vidview.html',
+    //   controller: 'VideoController'
+    // });
 
     $urlRouterProvider.otherwise('/');
 });
