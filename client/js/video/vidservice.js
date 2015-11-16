@@ -27,14 +27,10 @@ angular.module('floatie.services.video', [])
       player.loadVideoById({videoId: videoId});
 
       //read and load the file
-    }else {
+    } else {
       this.file.length = 0;
       this.loadFile(evt);
     }
-  };
-
-  this.playVideoBySearch = function (videoId) {
-      this.player.loadVideoById({videoId: videoId});
   };
 
   this.addEventListeners = function (element, player) {
@@ -64,23 +60,6 @@ angular.module('floatie.services.video', [])
           });
   };
 
-  this.loadFileBySearch = function (path) {
-    //stop video if there was a video playing.
-    if (this.player !== undefined) this.player.stopVideo();
-    //delete the previous content (old file)
-    this.file.length = 0;
-
-    var self = this;
-    //using lazy to read the file line by line 
-    new lazy(fs.createReadStream(path))
-         .lines
-         .forEach(function(line){
-          //force the digest event.
-            $rootScope.$apply(function () {
-              self.file.push(line.toString());
-            });
-          });
-  };
 });
 
 // angular.module('floatie.services.video', [])

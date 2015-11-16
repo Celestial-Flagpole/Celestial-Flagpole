@@ -1,16 +1,19 @@
 var os = require('os');
 var fs = require('fs');
-var direct = os.homedir() + '/Desktop/hackreactor';
 var Walker = require('walker');
 var url = require('url');
 var walk = require('walk');
+
+//console.log(os.homedir());
+
+//var direct = os.homedir() + '/Desktop/HackReactor';
 
 options = {
   followLinks: false,
   filters: ["Temp", "_Temp", "node_modules"]
 };
 
-var walker = walk.walk('/Users/peekay/Desktop', options);
+var walker = walk.walk('/Users/andresmm/Documents', options);
 
 module.exports = {
   readDir: function(req, res, next) {
@@ -27,7 +30,7 @@ module.exports = {
     walker.on('file', function (root, fileStats, next) {
       if (fileStats.name === query) {
         results.push({'file': root + '/' + fileStats.name});
-        console.log(' i worked')
+        console.log(' i worked');
       }
       next();
     });
@@ -37,11 +40,15 @@ module.exports = {
     });
    
     walker.on("end", function () {
-      console.log("all done: ", results);
-      res.status(200).send(results);
+      console.log("all doneee: ", results);
+      //res.status(200);
+      //res.send(results);
+      //res.status(200).send(results);
+      res.status(200);
+      res.json(results);
     });
   }
-}
+};
 
 
     // Walker('/Users/peekay/Desktop/hackreactor/')

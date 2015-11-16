@@ -17,9 +17,10 @@
 
 <div class="row">
     <div class="col-md-3">
-        <form ng-submit="searchController.searchFiles()" action="#">
+        <form ng-submit="searchController.searchFiles()">
             <p><input type="text" id="search" ng-model="searchController.filesearchQuery" placeholder="Search for a file..." autocomplete="off" class="form-control" /></p>
-            <p><input type="submit" value="File" class="btn btn-danger"></p>
+            <button class="btn btn-danger">File</button>
+            <!-- <p><input type="submit" value="File" class="btn btn-danger"></p> -->
         </form>
         <div ng-show="searchController.showResultsForFile()" ng-repeat="result in searchController.filesearchResults">
             <div class="snippet">

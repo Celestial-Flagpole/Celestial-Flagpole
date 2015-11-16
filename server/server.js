@@ -13,9 +13,10 @@ var app = express();
 
 // Configure our server with all the middleware and routing
 require('./config/middleware.js')(app, express);
-
+var ip = "127.0.0.1";
 // Set up the port the server should listen to
-app.listen(process.env.PORT || 8686);
+//app.listen(process.env.PORT || 8686);
+app.listen(8686, ip);
 console.log('Server now listening');
 
 // Export our app for testing and flexibility
