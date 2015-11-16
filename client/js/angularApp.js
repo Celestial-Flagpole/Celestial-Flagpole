@@ -1,10 +1,17 @@
+/*
+This module defines our main floatie app. Important things to note are: 
+1) The use of ui-router to manage state
+2) The ROOT has 2 views: youtube search and file search
+3) We built out a Service for search (floatie.services.search) and video (floatie.services.video) where common methods that we plan to use across the application lie.
+*/
+
 angular.module('floatie', [
   'ui.router',
   'video',
   'youtubeApp',
-  // 'search',
   'floatie.services.video',
-  // 'floatie.services.search',
+  'search',
+  'floatie.services.search',
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -15,11 +22,11 @@ angular.module('floatie', [
     .state('video', {
       url: '/',
       views: {
-        // 'search@': {
-        //   templateUrl: 'client/js/search/searchview.html',
-        //   controller: 'SearchController',
-        //   controllerAs: 'searchController'
-        // },
+        'search@': {
+          templateUrl: 'client/js/search/searchview.html',
+          controller: 'SearchController',
+          controllerAs: 'searchController'
+        },
         'video@': {
           templateUrl: 'client/js/video/vidview.html',
           controller: 'VideoController',
@@ -27,11 +34,6 @@ angular.module('floatie', [
         }
       }
     });
-    // .state('video', {
-    //   url: '/',
-    //   templateUrl: 'client/js/video/vidview.html',
-    //   controller: 'VideoController'
-    // });
 
     $urlRouterProvider.otherwise('/');
 });
