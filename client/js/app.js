@@ -287,7 +287,6 @@ var close = {
 };
 
 //register the shortcuts
-//var minShortcut = new nw.Shortcut(minimize);
 nw.App.registerGlobalHotKey(new nw.Shortcut(minimize));
 nw.App.registerGlobalHotKey(new nw.Shortcut(maximize));
 nw.App.registerGlobalHotKey(new nw.Shortcut(close));
