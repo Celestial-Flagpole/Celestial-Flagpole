@@ -1,9 +1,9 @@
-angular.module('floatie.services.video', [])
-.service('VideoService', function ($http, $q) {
-  var service = this;
+// angular.module('floatie.services.video', [])
+// .service('VideoService', function ($http, $q) {
+//   var service = this;
   
-  service.someFunc= function () {
+//   service.someFunc= function () {
 
-  };
+//   };
 
-});
+// });
