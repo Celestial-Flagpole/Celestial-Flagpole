@@ -161,8 +161,6 @@ nw.Window.get().menu = windowMenu;
 Youtube search
 ****************************************************/
 
-// function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
-
 // $(function() {
 //     $("#youtube").on("keyup", function (e) {
 //        e.preventDefault();
@@ -170,6 +168,10 @@ Youtube search
 //        if ($('#search').val() === '') {
 //         $('#results').html("");
 //        } else {
+
+
+//         console.log('key up')
+
 //            var request = gapi.client.youtube.search.list({
 //                 part: "snippet",
 //                 type: "video",
@@ -184,6 +186,7 @@ Youtube search
 //               var results = response.result;
 //               $("#results").html("");
 //               $.each(results.items, function(index, item) {
+
 //                   $("#results").append('<span onclick="searchVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
 //                 });
 //               });
@@ -232,12 +235,19 @@ $(function() {
                 });
               });
               resetVideoHeight();
-        
-        $(window).on("resize", resetVideoHeight);
-       }
 
-    });
-});
+//                 var videoId = item.snippet.videoId;
+//                   $("#results").append('<span onclick="searchPlayVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
+//                 });
+//               });
+//               resetVideoHeight();
+
+        
+//         $(window).on("resize", resetVideoHeight);
+//        }
+
+//     });
+// });
 
 function searchPlayVideo (videoId) {
   console.log('I ran!' + videoId);
@@ -359,6 +369,7 @@ var maximize = {
     console.log(msg);
   }
 };
+
 
 var close = {
   //ctrl is cmd in OSX
