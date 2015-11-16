@@ -15,6 +15,7 @@ angular.module('search', ['floatie.services.search'])
   };
 
   searchController.playVideo = function (videoId) {
+    searchController.youtubeQuery = '';
     VideoService.playVideoBySearch(videoId);
   };
 
