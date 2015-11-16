@@ -9,8 +9,8 @@
 </div>
 
 <div id="dropZone" style="width:100%; height:100%">
-  <br><br><youtube ng-show="!showFile()"></youtube>
-  <div ng-show="showFile()" ng-repeat="line in file track by $index">{{line}}</div>
+  <br><br><youtube ng-show="!videoController.showFile()"></youtube>
+  <div ng-show="videoController.showFile()" ng-repeat="line in videoController.file track by $index">{{line}}</div>
 </div>
 
 

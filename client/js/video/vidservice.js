@@ -11,7 +11,7 @@ angular.module('floatie.services.video', [])
   this.playVideo = function (player) {
     var evt = arguments[1];
     var videoUrl = evt.dataTransfer.getData("URL");
-    console.log(videoUrl);
+
     //if videoUrl is not undefined, assuming the user dropped a video
     if (videoUrl !== '') {
       this.player = player;
@@ -25,6 +25,8 @@ angular.module('floatie.services.video', [])
       var videoId = url.parse(videoUrl).query.split('=')[1];
       console.log(videoId);
       player.loadVideoById({videoId: videoId});
+
+      //read and load the file
     }else {
       this.file.length = 0;
       this.loadFile(evt);
@@ -52,7 +54,6 @@ angular.module('floatie.services.video', [])
          .forEach(function(line){
           //force the digest event.
             $rootScope.$apply(function () {
-              console.log(line.toString());
               self.file.push(line.toString());
             });
           });
