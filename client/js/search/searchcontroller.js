@@ -5,7 +5,7 @@ angular.module('search', ['floatie.services.search'])
 .controller('SearchController', function SearchController(SearchService, VideoService) {
   var searchController = this;
   searchController.youtubeResults = [];
-  searchController.filesearchResults = [];
+  searchController.filesearchResults = {};
 
   searchController.searchYoutube = function () {
     SearchService.searchYoutube(searchController.youtubeQuery)
@@ -27,10 +27,15 @@ angular.module('search', ['floatie.services.search'])
   };
 
   searchController.searchFiles = function () {
+    // var search = SearchService.loadFileBySearch(searchController.filesearchQuery);
+    // search.then(function (result) {
+    //   console.log("testing123");
+    //   searchController.filesearchResults = result;
+    // });
     SearchService.loadFileBySearch(searchController.filesearchQuery)
       .then(function (results) {
-        console.log('results')
-         searchController.filesearchResults = results;
+        console.log(results);
+        searchController.filesearchResults = results;
       });
   };
   
