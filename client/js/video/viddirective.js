@@ -6,11 +6,6 @@ angular.module('youtubeApp', [])
       restrict: "E",
       template: '<div></div>',
 
-      //this 
-      scope: {
-        videoId:  "@"
-      },
-
       link: function($scope, element) {
         //Add the script tag to load the youtube player
         element[0].ondrop = function(e) { e.preventDefault(); return false; };
@@ -19,12 +14,10 @@ angular.module('youtubeApp', [])
         var firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        //Add event listeners for drag and drop
-        //Using the VideoService service in case we need to add listeners in multiple html files
-
         var player;
         //When the api finishes loading, this function is called
         //this function adds the player to the youtube directive
+        //https://developers.google.com/youtube/iframe_api_reference?hl=en
         $window.onYouTubeIframeAPIReady = function () {
           player = new YT.Player(element.children()[0], {
             height: $window.innerHeight - 70 + "px",

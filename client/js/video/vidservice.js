@@ -3,7 +3,7 @@ var fs = require('fs');
 var lazy = require("lazy");
 
 angular.module('floatie.services.video', [])
-.service('VideoService', function ($rootScope, $location, $q) {
+.service('VideoService', function ($rootScope) {
 
   this.file = [];
   this.player;
@@ -17,7 +17,7 @@ angular.module('floatie.services.video', [])
       this.player = player;
       //save a reference to this
       var self = this;
-      //use apply to "force" angular to do the digest process
+      //use apply to "force" angular to do the digest event
       $rootScope.$apply(function () {
         self.file.length = 0;
       });
@@ -36,17 +36,21 @@ angular.module('floatie.services.video', [])
     element[0].parentElement.ondragenter = this.playVideo.bind(this, player);
     dropZone.ondragenter = this.playVideo.bind(this, player);
   };
-  //mover el event listener al controller
-  //agregar variable al service para el arreglo
+
   this.loadFile = function () {
+    //stop video if there was a video playing.
     if (this.player !== undefined) this.player.stopVideo();
+    //delete the previous content (old file)
     this.file.length = 0;
     var evt = arguments[0];
+    //path to file dropped by the user
     var path = evt.dataTransfer.files[0].path;
     var self = this;
+    //using lazy to read the file line by line 
     new lazy(fs.createReadStream(path))
          .lines
          .forEach(function(line){
+          //force the digest event.
             $rootScope.$apply(function () {
               console.log(line.toString());
               self.file.push(line.toString());

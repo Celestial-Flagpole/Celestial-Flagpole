@@ -52,12 +52,21 @@ a#windowControlMinimize{
     background-position: 0 0
 }
 
-#fileDropDiv{
-    position: relative;
-    z-index: 50;
+#dropZone {
+    float: left;
+    position: absolute;
+    z-index: 1;
 }
 
-iframe{
+.ontop {
+    float: left;
+    position: absolute;
+    z-index: 1;
+}
+
+iframe {
+    float: none;
     position: relative;
+    z-index: -1;
 }
 
