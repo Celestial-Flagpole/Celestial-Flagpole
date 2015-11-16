@@ -1,17 +1,17 @@
 angular.module('video', [])
 .controller('VideoController', function VideoController($scope, VideoService) {
   $scope.videoService = VideoService;
-  $scope.text = VideoService.text;
+  $scope.file = VideoService.file;
+  $scope.isFile = true;
 
-  //$scope.addListener = function () {
-    $scope.$watch('VideoService.text', function(text, oldText, scope){
-      if(text) {
-        console.log('changed');
-        $scope.text = text;
-      }
-    });
-  //};
+  $scope.showFile = function () {
+    if($scope.file.length === 0){
+      return false;
+    }else {
+      return true;
+    }
 
-  //$scope.addListener();
+  };
+
   
 });

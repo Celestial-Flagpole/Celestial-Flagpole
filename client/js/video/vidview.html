@@ -9,8 +9,10 @@
 </div>
 
 <div id="dropZone" style="width:100%; height:100%">
-  <br><br><youtube width="320" height="195" videoId="M7lc1UVf-VE"></youtube>
+  <br><br><youtube ng-show="!showFile()" width="320" height="195"></youtube>
+  <div ng-show="showFile()" ng-repeat="line in file track by $index">{{line}}</div>
 </div>
+
 
 <script>
   window.ondragenter = function(e) { e.preventDefault(); return false; };
