@@ -14,30 +14,32 @@ var walker = walk.walk('/Users/peekay/Desktop', options);
 
 module.exports = {
   readDir: function(req, res, next) {
+
     function split(dir) {
       return dir.toString().split('/');
     }
 
-    var query = url.parse(req.url).query;
-    console.log(query, 'from server');
+    var query = url.parse(req.url).pathname;
+    query = query.split('/')[1];
+    console.log(query);
     var results = [];
 
-      walker.on('file', function (root, fileStats, next) {
-        if (fileStats.name === query) {
-          results.push({'file': root + '/' + fileStats.name});
-          console.log(' i worked')
-        }
-        next();
-      });
-     
-      walker.on("errors", function (root, nodeStatsArray, next) {
-        next();
-      });
-     
-      walker.on("end", function () {
-        console.log("all done: ", results);
-        res.status(200).send(results);
-      });
+    walker.on('file', function (root, fileStats, next) {
+      if (fileStats.name === query) {
+        results.push({'file': root + '/' + fileStats.name});
+        console.log(' i worked')
+      }
+      next();
+    });
+   
+    walker.on("errors", function (root, nodeStatsArray, next) {
+      next();
+    });
+   
+    walker.on("end", function () {
+      console.log("all done: ", results);
+      res.status(200).send(results);
+    });
   }
 }
 

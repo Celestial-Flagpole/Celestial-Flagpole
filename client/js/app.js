@@ -206,48 +206,48 @@ Youtube search
 //     $(".video").css("height", $("#results").width() * 9/16);
 // }
 
-function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+// function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
 
-$(function() {
-    $("#youtube").on("keyup", function (e) {
-       e.preventDefault();
-       // prepare the request
-       if ($('#search').val() === '') {
-        $('#results').html("");
-       } else {
-        console.log('key up')
-           var request = gapi.client.youtube.search.list({
-                part: "snippet",
-                type: "video",
-                q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
-                maxResults: 10,
-                videoEmbeddable: true,
-                order: "viewCount",
-                publishedAfter: "2000-01-01T00:00:00Z"
-           }); 
-           // execute the request
-           request.execute(function (response) {
-              var results = response.result;
-              $("#results").html("");
-              $.each(results.items, function(index, item) {
-                var videoId = item.snippet.videoId;
-                  $("#results").append('<span onclick="searchPlayVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
-                });
-              });
-              resetVideoHeight();
-
+// $(function() {
+//     $("#youtube").on("keyup", function (e) {
+//        e.preventDefault();
+//        // prepare the request
+//        if ($('#search').val() === '') {
+//         $('#results').html("");
+//        } else {
+//         console.log('key up')
+//            var request = gapi.client.youtube.search.list({
+//                 part: "snippet",
+//                 type: "video",
+//                 q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
+//                 maxResults: 10,
+//                 videoEmbeddable: true,
+//                 order: "viewCount",
+//                 publishedAfter: "2000-01-01T00:00:00Z"
+//            }); 
+//            // execute the request
+//            request.execute(function (response) {
+//               var results = response.result;
+//               $("#results").html("");
+//               $.each(results.items, function(index, item) {
 //                 var videoId = item.snippet.videoId;
 //                   $("#results").append('<span onclick="searchPlayVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
 //                 });
 //               });
 //               resetVideoHeight();
 
-        
-//         $(window).on("resize", resetVideoHeight);
-//        }
+// //                 var videoId = item.snippet.videoId;
+// //                   $("#results").append('<span onclick="searchPlayVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
+// //                 });
+// //               });
+// //               resetVideoHeight();
 
-//     });
-// });
+        
+// //         $(window).on("resize", resetVideoHeight);
+// //        }
+
+// //     });
+// // });
 
 function searchPlayVideo (videoId) {
   console.log('I ran!' + videoId);
@@ -306,39 +306,39 @@ User file directory search
 
 //create shortcut to minimize the window
 
-$(function() {
-    $("#filesystem").on("submit", function (e) {
-       e.preventDefault();
-       // prepare the request
-       if ($('#searchfs').val() === '') {
-        $('#resultsfs').html("");
-       } else {
-          var query = $('#searchfs').val(); 
-          console.log('query: ' + query)
+// $(function() {
+//     $("#filesystem").on("submit", function (e) {
+//        e.preventDefault();
+//        // prepare the request
+//        if ($('#searchfs').val() === '') {
+//         $('#resultsfs').html("");
+//        } else {
+//           var query = $('#searchfs').val(); 
+//           console.log('query: ' + query)
 
-           $.ajax({
-            url: 'http://127.0.0.1:8686/api/float/',
-            type: 'GET',
-            data: query,
-            crossDomain: true,
-            contentType: 'application/json',
-            success: function (data) {
-               $("#resultsfs").html("");
-               if (data.length === undefined) {
-                return; 
-               } else {
-                 $.each(data, function(index, item) {
-                     $("#resultsfs").append('<a><span onclick="readFile(\''+item.file+'\')">' + item.file + '</span></a></br>');
-                   });
-               }
-            },
-            error: function (data) {
-              console.error('failed');
-            }
-           });
-       }
-    });
-});
+//            $.ajax({
+//             url: 'http://127.0.0.1:8686/api/float/',
+//             type: 'GET',
+//             data: query,
+//             crossDomain: true,
+//             contentType: 'application/json',
+//             success: function (data) {
+//                $("#resultsfs").html("");
+//                if (data.length === undefined) {
+//                 return; 
+//                } else {
+//                  $.each(data, function(index, item) {
+//                      $("#resultsfs").append('<a><span onclick="readFile(\''+item.file+'\')">' + item.file + '</span></a></br>');
+//                    });
+//                }
+//             },
+//             error: function (data) {
+//               console.error('failed');
+//             }
+//            });
+//        }
+//     });
+// });
 
 function readFile (path) {
   global.readFile(path);
