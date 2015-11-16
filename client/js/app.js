@@ -1,4 +1,5 @@
 var nw = require('nw.gui'); // require the nw module
+var clipboard = nw.Clipboard.get();
 var win = nw.Window.get(); // Window object
 var util = require('util');
 var exec = require('child_process').exec;
@@ -38,49 +39,6 @@ win.on('maximize', function() {
 
 win.on('unmaximize', function() {
   win.isMaximized = false;
-});
-
-
-/**************************************************
-Context menu
-****************************************************/
-
-var paraMenu = new nw.Menu();
-// Context sub-menu for paragraph styles
-var paraStyleMenu = new nw.Menu();
-
-// Track which element was clicked on
-var whichNode;
-
-// [entry] Remove a paragraph
-paraMenu.append(new nw.MenuItem({
-    label: 'Remove this paragraph',
-    click: function(){
-        whichNode.parentNode.removeChild(whichNode);
-    }
-}));
-
-// Separator
-paraMenu.append(new nw.MenuItem({
-    type: 'separator'
-}));
-
-// [entry] sub-menu
-paraMenu.append(new nw.MenuItem({
-    label: 'Change Style',
-    submenu: paraStyleMenu
-}));
-
-// Then can do stuff on the paraStyleMenu as well
-
-document.body.addEventListener('contextmenu', function(e) {
-  e.preventDefault();
-
-  if (e.target.localName === 'p') {
-    whichNode = e.srcElement;
-    paraMenu.popup(e.x, e.y); // have an event reference to x & y values
-  }
-  // DO SOMETHING
 });
 
 
@@ -125,7 +83,6 @@ helpMenu.append(new nw.MenuItem({
 nw.Window.get().menu = windowMenu;
 
 // Go To menu
-
 var goToMenu = new nw.Menu();
 
 // Add to window menu
@@ -157,56 +114,39 @@ goToMenu.append(new nw.MenuItem({
 nw.Window.get().menu = windowMenu;
 
 // https://nakupanda.github.io/bootstrap3-dialog/
+
+function init () {
+    gapi.client.setApiKey("AIzaSyB43aTG-cE39P6ZnaQ2v_pWWvgSVr1l73s");
+    gapi.client.load("youtube", "v3", function() {
+        // yt api is ready
+    });
+}
+
 /**************************************************
-Youtube search
+Context Menu
 ****************************************************/
+// Tracking which element was clicked on
+var whichNode;
 
-// $(function() {
-//     $("#youtube").on("keyup", function (e) {
-//        e.preventDefault();
-//        // prepare the request
-//        if ($('#search').val() === '') {
-//         $('#results').html("");
-//        } else {
+// Context menu for paragraphs
+var paraMenu = new nw.Menu();
+
+if (whichNode.tagName.toLowerCase() == 'div') {
+  paraMenu.append(new gui.MenuItem({
+    label: "Cut",
+    click: function () {
+      clipboard.set(whichNode.value);
+      whichNode.value = '';
+    }
+  }));
 
 
-//         console.log('key up')
-
-//            var request = gapi.client.youtube.search.list({
-//                 part: "snippet",
-//                 type: "video",
-//                 q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
-//                 maxResults: 10,
-//                 videoEmbeddable: true,
-//                 order: "viewCount",
-//                 publishedAfter: "2000-01-01T00:00:00Z"
-//            }); 
-//            // execute the request
-//            request.execute(function (response) {
-//               var results = response.result;
-//               $("#results").html("");
-//               $.each(results.items, function(index, item) {
-
-//                   $("#results").append('<span onclick="searchVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
-//                 });
-//               });
-//               resetVideoHeight();
-        
-//         $(window).on("resize", resetVideoHeight);
-//        }
-//     });
-// });
-
-// function searchVideo (id) {
-//   console.log(id);
-//   global.playSearchVideo(id);
-// }
-
-// function resetVideoHeight () {
-//     $(".video").css("height", $("#results").width() * 9/16);
-// }
-
-// function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+  paraMenu.append(new gui.MenuItem({
+    label: "Copy",
+    click: function () {
+      clipboard.set(whichNode.value);
+    }
+  }));
 
 // $(function() {
 //     $("#youtube").on("keyup", function (e) {
@@ -255,57 +195,44 @@ function searchPlayVideo (videoId) {
   global.searchPlayVideo(videoId);
 }
 
-function resetVideoHeight () {
-    $(".video").css("height", $("#results").width() * 9/16);
+
+  paraMenu.append(new gui.MenuItem({
+    label: "Paste",
+    click: function () {
+      whichNode.value = clipboard.get();
+    }
+  }));
+} else if (whichNode.tagName.toLowerCase() == 'a') {
+  paraMenu.append(new gui.MenuItem({
+    label: "Copy Link",
+    click: function () {
+      var url = whichNode.href;
+      clipboard.set(url);
+    }
+  }));
+} else {
+  var selection = window.getSelection().toString();
+  if (selection.length > 0) {
+    paraMenu.append(new gui.MenuItem({
+      label: "Copy",
+      click: function () {
+        clipboard.set(selection);
+      }
+    }));
+  }
 }
 
-function init () {
-    gapi.client.setApiKey("AIzaSyB43aTG-cE39P6ZnaQ2v_pWWvgSVr1l73s");
-    gapi.client.load("youtube", "v3", function() {
-        // yt api is ready
-    });
-}
+window.oncontextmenu = function (e) {
+    e.preventDefault();
+    whichNode = e.target || e.srcElement;
+    paraMenu.popup(e.x, e.y);
+};
 
 
 /**************************************************
 User file directory search
 ****************************************************/
 
-// $(function() {
-//     $("#filesystem").on("submit", function (e) {
-//        e.preventDefault();
-//        // prepare the request
-//        if ($('#searchfs').val() === '') {
-//         $('#resultsfs').html("");
-//        } else {
-//           var query = $('#searchfs').val(); 
-//           console.log('query: ' + query)
-
-//            $.ajax({
-//             url: 'http://127.0.0.1:8686/api/float/',
-//             type: 'GET',
-//             data: query,
-//             crossDomain: true,
-//             contentType: 'application/json',
-//             success: function (data) {
-//                $("#resultsfs").html("");
-//                if (data.length === undefined) {
-//                 return; 
-//                } else {
-//                  $.each(data, function(index, item) {
-//                      $("#resultsfs").append('<a><span>' + item.file + '</span></a></br>');
-//                    });
-//                }
-//             },
-//             error: function (data) {
-//               console.error('failed');
-//             }
-//            });
-//        }
-//     });
-// });
-
-//create shortcut to minimize the window
 
 // $(function() {
 //     $("#filesystem").on("submit", function (e) {
