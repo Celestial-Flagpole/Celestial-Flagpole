@@ -126,107 +126,107 @@ function init () {
 Context Menu
 ****************************************************/
 // Tracking which element was clicked on
-var whichNode;
+// var whichNode;
 
-// Context menu for paragraphs
-var paraMenu = new nw.Menu();
+// // Context menu for paragraphs
+// var paraMenu = new nw.Menu();
 
-if (whichNode.tagName.toLowerCase() == 'div') {
-  paraMenu.append(new gui.MenuItem({
-    label: "Cut",
-    click: function () {
-      clipboard.set(whichNode.value);
-      whichNode.value = '';
-    }
-  }));
+// // if (whichNode.tagName.toLowerCase() == 'div') {
+// //   paraMenu.append(new gui.MenuItem({
+// //     label: "Cut",
+// //     click: function () {
+// //       clipboard.set(whichNode.value);
+// //       whichNode.value = '';
+// //     }
+// //   }));
 
 
-  paraMenu.append(new gui.MenuItem({
-    label: "Copy",
-    click: function () {
-      clipboard.set(whichNode.value);
-    }
-  }));
+//   paraMenu.append(new gui.MenuItem({
+//     label: "Copy",
+//     click: function () {
+//       clipboard.set(whichNode.value);
+//     }
+//   }));
 
-// $(function() {
-//     $("#youtube").on("keyup", function (e) {
-//        e.preventDefault();
-//        // prepare the request
-//        if ($('#search').val() === '') {
-//         $('#results').html("");
-//        } else {
-//         console.log('key up')
-//            var request = gapi.client.youtube.search.list({
-//                 part: "snippet",
-//                 type: "video",
-//                 q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
-//                 maxResults: 10,
-//                 videoEmbeddable: true,
-//                 order: "viewCount",
-//                 publishedAfter: "2000-01-01T00:00:00Z"
-//            }); 
-//            // execute the request
-//            request.execute(function (response) {
-//               var results = response.result;
-//               $("#results").html("");
-//               $.each(results.items, function(index, item) {
-//                 var videoId = item.snippet.videoId;
-//                   $("#results").append('<span onclick="searchPlayVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
-//                 });
-//               });
-//               resetVideoHeight();
-
+// // $(function() {
+// //     $("#youtube").on("keyup", function (e) {
+// //        e.preventDefault();
+// //        // prepare the request
+// //        if ($('#search').val() === '') {
+// //         $('#results').html("");
+// //        } else {
+// //         console.log('key up')
+// //            var request = gapi.client.youtube.search.list({
+// //                 part: "snippet",
+// //                 type: "video",
+// //                 q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
+// //                 maxResults: 10,
+// //                 videoEmbeddable: true,
+// //                 order: "viewCount",
+// //                 publishedAfter: "2000-01-01T00:00:00Z"
+// //            }); 
+// //            // execute the request
+// //            request.execute(function (response) {
+// //               var results = response.result;
+// //               $("#results").html("");
+// //               $.each(results.items, function(index, item) {
 // //                 var videoId = item.snippet.videoId;
 // //                   $("#results").append('<span onclick="searchPlayVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
 // //                 });
 // //               });
 // //               resetVideoHeight();
 
+// // //                 var videoId = item.snippet.videoId;
+// // //                   $("#results").append('<span onclick="searchPlayVideo(\''+item.id.videoId+'\')">' + '<img src=' + item.snippet.thumbnails.default.url + '>' + ' Title: ' + item.snippet.title + '</br></span>');
+// // //                 });
+// // //               });
+// // //               resetVideoHeight();
+
         
-// //         $(window).on("resize", resetVideoHeight);
-// //        }
+// // //         $(window).on("resize", resetVideoHeight);
+// // //        }
 
-// //     });
-// // });
-//}
+// // //     });
+// // // });
+// //}
 
-function searchPlayVideo (videoId) {
-  console.log('I ran!' + videoId);
-  global.searchPlayVideo(videoId);
-}
+// function searchPlayVideo (videoId) {
+//   console.log('I ran!' + videoId);
+//   global.searchPlayVideo(videoId);
+// }
 
 
-  paraMenu.append(new gui.MenuItem({
-    label: "Paste",
-    click: function () {
-      whichNode.value = clipboard.get();
-    }
-  }));
-} else if (whichNode.tagName.toLowerCase() == 'a') {
-  paraMenu.append(new gui.MenuItem({
-    label: "Copy Link",
-    click: function () {
-      var url = whichNode.href;
-      clipboard.set(url);
-    }
-  }));
-} else {
-  var selection = window.getSelection().toString();
-  if (selection.length > 0) {
-    paraMenu.append(new gui.MenuItem({
-      label: "Copy",
-      click: function () {
-        clipboard.set(selection);
-      }
-    }));
-  }
-}
+//   paraMenu.append(new gui.MenuItem({
+//     label: "Paste",
+//     click: function () {
+//       whichNode.value = clipboard.get();
+//     }
+//   }));
+// } else if (whichNode.tagName.toLowerCase() == 'a') {
+//   paraMenu.append(new gui.MenuItem({
+//     label: "Copy Link",
+//     click: function () {
+//       var url = whichNode.href;
+//       clipboard.set(url);
+//     }
+//   }));
+// } else {
+//   var selection = window.getSelection().toString();
+//   if (selection.length > 0) {
+//     paraMenu.append(new gui.MenuItem({
+//       label: "Copy",
+//       click: function () {
+//         clipboard.set(selection);
+//       }
+//     }));
+//   }
+// }
 
-window.oncontextmenu = function (e) {
-    e.preventDefault();
-    whichNode = e.target || e.srcElement;
-    paraMenu.popup(e.x, e.y);
-};
+// window.oncontextmenu = function (e) {
+//     e.preventDefault();
+//     whichNode = e.target || e.srcElement;
+//     paraMenu.popup(e.x, e.y);
+// };
 
 
 /**************************************************
@@ -268,9 +268,9 @@ User file directory search
 //     });
 // });
 
-function readFile (path) {
-  global.readFile(path);
-}
+// function readFile (path) {
+//   global.readFile(path);
+// }
 
 
 var minimize = {

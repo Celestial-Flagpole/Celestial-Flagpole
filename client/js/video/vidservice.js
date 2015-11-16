@@ -66,6 +66,7 @@ angular.module('floatie.services.video', [])
   
 
   this.loadFileBySearch = function (path) {
+    console.log("PATH: ", path);
      //stop video if there was a video playing.
       if (this.player !== undefined) this.player.stopVideo();
       //delete the previous content (old file)
