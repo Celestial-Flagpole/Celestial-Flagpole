@@ -11,11 +11,14 @@
 
     <div class="col-lg-12">
         <div class="input-group">
-            <form ng-submit="searchController.searchFiles()" action="#">
+            <form ng-submit="searchController.searchFiles()">
                 <input type="text" id="search" ng-model="searchController.filesearchQuery" placeholder="Search for a file..." autocomplete="off" class="form-control" />
                 <span class="input-group-btn">
-                    <button type="button" value="File" class="btn-danger btn-sm">Search</button>
-
+                    <button ng-click="searchController.searchFiles()" type="button" value="File" class="btn-danger btn-sm">Search</button>
+                </span>
+            </form>
+        </div>
+    </div>
 </div>
 
 <div class="col-lg-12" ng-show="searchController.showResults()" ng-repeat="result in searchController.youtubeResults">
@@ -29,8 +32,8 @@
 
 <div ng-show="searchController.showResultsForFile()" ng-repeat="result in searchController.filesearchResults">
     <div class="snippet">
-        <span >
-            {{ result.file }}
+        <span ng-click="searchController.showFile(result.file)">
+         {{result.file}}
         </span>
     </div>
 </div>

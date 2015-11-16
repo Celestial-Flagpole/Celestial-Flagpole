@@ -5,9 +5,10 @@ angular.module('search', ['floatie.services.search'])
 .controller('SearchController', function SearchController(SearchService, VideoService) {
   var searchController = this;
   searchController.youtubeResults = [];
-  searchController.filesearchResults = {};
+  searchController.filesearchResults = [];
 
   searchController.searchYoutube = function () {
+    searchController.showResultsForFile = false;
     SearchService.searchYoutube(searchController.youtubeQuery)
       .then(function(results) {
         searchController.youtubeResults = results;
@@ -15,6 +16,7 @@ angular.module('search', ['floatie.services.search'])
   };
 
   searchController.playVideo = function (videoId) {
+    searchController.showResultsForFile = false;
     searchController.youtubeQuery = '';
     VideoService.playVideoBySearch(videoId);
   };
@@ -27,7 +29,12 @@ angular.module('search', ['floatie.services.search'])
     }
   };
 
+  searchController.showFile = function(path) {
+    VideoService.loadFileBySearch(path);
+  };
+
   searchController.searchFiles = function () {
+    console.log("test");
     // var search = SearchService.loadFileBySearch(searchController.filesearchQuery);
     // search.then(function (result) {
     //   console.log("testing123");
@@ -35,9 +42,11 @@ angular.module('search', ['floatie.services.search'])
     // });
     SearchService.loadFileBySearch(searchController.filesearchQuery)
       .then(function (results) {
-        console.log(results);
-        searchController.filesearchResults = results;
+        console.log("DATA", results.data);
+        searchController.filesearchResults = results.data;
+        searchController.showResultsForFile = true;
       });
   };
-  
+
+  searchController.showResultsForFile = true;
 });
