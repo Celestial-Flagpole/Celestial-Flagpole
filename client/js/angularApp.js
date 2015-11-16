@@ -8,11 +8,6 @@ angular.module('floatie', [
 ])
 .config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider
-    // .state('file', {
-    //   url: '/',
-    //   templateUrl: 'client/js/video/fileview.html',
-    //   controller: 'VideoController',
-    // })
     .state('video', {
       url: '/',
       templateUrl: 'client/js/video/vidview.html',

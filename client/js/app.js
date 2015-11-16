@@ -248,12 +248,11 @@ User file directory search
 //     });
 // });
 
-
+//create shortcut to minimize the window
 var minimize = {
   //ctrl is cmd in OSX
   key : "Ctrl+Shift+Down",
   active : function() {
-    console.log("Global desktop keyboard shortcut: " + this.key + " active.");
     win.minimize();
   },
   failed : function(msg) {
@@ -262,11 +261,11 @@ var minimize = {
   }
 };
 
+//create shortcut to maximize the window
 var maximize = {
   //ctrl is cmd in OSX
   key : "Ctrl+Shift+Up",
   active : function() {
-    console.log("Global desktop keyboard shortcut: " + this.key + " active.");
     win.restore();
   },
   failed : function(msg) {
@@ -275,11 +274,23 @@ var maximize = {
   }
 };
 
+var close = {
+  //ctrl is cmd in OSX
+  key : "Ctrl+Shift+C",
+  active : function() {
+    win.close();
+  },
+  failed : function(msg) {
+    // :(, fail to register the |key| or couldn't parse the |key|.
+    console.log(msg);
+  }
+};
+
 //register the shortcuts
-var minShortcut = new nw.Shortcut(minimize);
-nw.App.registerGlobalHotKey(minShortcut);
-var maxShortcut = new nw.Shortcut(maximize);
-nw.App.registerGlobalHotKey(maxShortcut);
+//var minShortcut = new nw.Shortcut(minimize);
+nw.App.registerGlobalHotKey(new nw.Shortcut(minimize));
+nw.App.registerGlobalHotKey(new nw.Shortcut(maximize));
+nw.App.registerGlobalHotKey(new nw.Shortcut(close));
 
 
 
