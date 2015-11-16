@@ -10,6 +10,7 @@ angular.module('floatie.services.search', [])
   // Return a promise function given the asynchronous nature of the API call
   service.searchYoutube = function (youtubeQuery) {
     var deferred = $q.defer();
+
     var request = gapi.client.youtube.search.list({
          part: "snippet",
          type: "video",
@@ -26,6 +27,20 @@ angular.module('floatie.services.search', [])
     });
 
     return deferred.promise; 
+  };
+
+  service.loadFileBySearch = function (filesearchQuery) {
+    return $http({
+      method: 'GET',
+      url: 'http://127.0.0.1:8686/api/float/' + filesearchQuery
+    })
+    .then(function successCallback (resp) {
+      console.log('got here')
+      console.log(resp)
+      return resp;
+    }, function errCallback (resp) {
+      console.error('i errored');
+    });
   };
 
 });

@@ -4,24 +4,29 @@
             <p><input type="text" id="search" ng-model="searchController.youtubeQuery" placeholder="Search for a video..." autocomplete="off" class="form-control" /></p>
             <p><input type="submit" value="Search" class="btn btn-danger"></p>
         </form>
-        <div ng-repeat="result in searchController.youtubeResults">
+        <div ng-show="searchController.showResults()" ng-repeat="result in searchController.youtubeResults">
             <div class="snippet">
-                <span>
+                <span ng-click="searchController.playVideo(result.id.videoId)">
                     <img src="{{ result.snippet.thumbnails.default.url}}"/>
-                    {{ result.snippet.title}}
+                    {{ result.snippet.title }}
                 </span>
             </div>
         </div>
     </div>
 </div>
 
-<!-- <div class="row">
+<div class="row">
     <div class="col-md-3">
-        <form ng-submit="searchFiles()" action="#">
-            <p><input type="text" id="searchfs" ng-model="fileQuery"placeholder="Search for a file..." autocomplete="off" class="form-control" /></p>
-            <p><input type="submit" value="Search" class="btn btn-danger"></p>
+        <form ng-submit="searchController.searchFiles()" action="#">
+            <p><input type="text" id="search" ng-model="searchController.filesearchQuery" placeholder="Search for a file..." autocomplete="off" class="form-control" /></p>
+            <p><input type="submit" value="File" class="btn btn-danger"></p>
         </form>
-        <div ng-repeat="result in data.filesearchResults"></div>
+        <div ng-show="searchController.showResultsForFile()" ng-repeat="result in searchController.filesearchResults">
+            <div class="snippet">
+                <span >
+                    {{ result.file }}
+                </span>
+            </div>
+        </div>
     </div>
-</div> -->
-
+</div>

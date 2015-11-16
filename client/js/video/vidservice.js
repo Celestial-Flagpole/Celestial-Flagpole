@@ -33,7 +33,12 @@ angular.module('floatie.services.video', [])
     }
   };
 
+  this.playVideoBySearch = function (videoId) {
+      this.player.loadVideoById({videoId: videoId});
+  };
+
   this.addEventListeners = function (element, player) {
+    this.player = player;
     //add event listener to play video or read file when dragging to drop zone
     element[0].parentElement.ondragenter = this.playVideo.bind(this, player);
     dropZone.ondragenter = this.playVideo.bind(this, player);
@@ -59,6 +64,26 @@ angular.module('floatie.services.video', [])
           });
   };
 
+<<<<<<< HEAD
+=======
+  this.loadFileBySearch = function (path) {
+    //stop video if there was a video playing.
+    if (this.player !== undefined) this.player.stopVideo();
+    //delete the previous content (old file)
+    this.file.length = 0;
+
+    var self = this;
+    //using lazy to read the file line by line 
+    new lazy(fs.createReadStream(path))
+         .lines
+         .forEach(function(line){
+          //force the digest event.
+            $rootScope.$apply(function () {
+              self.file.push(line.toString());
+            });
+          });
+  };
+>>>>>>> 1db7d108681201df6eaee456fb6fe3a34a1f8d7b
 });
 
 // angular.module('floatie.services.video', [])
