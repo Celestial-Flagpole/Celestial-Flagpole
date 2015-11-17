@@ -46,7 +46,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap (https://github.com/Celestial-Flagpole/Celestial-Flagpole/issues)
+View the project roadmap [LINK] (https://github.com/Celestial-Flagpole/Celestial-Flagpole/issues)
 
 ## Contributing
 
