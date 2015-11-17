@@ -34,15 +34,10 @@ angular.module('search', ['floatie.services.search'])
   };
 
   searchController.searchFiles = function () {
-    console.log("test");
-    // var search = SearchService.loadFileBySearch(searchController.filesearchQuery);
-    // search.then(function (result) {
-    //   console.log("testing123");
-    //   searchController.filesearchResults = result;
-    // });
     SearchService.loadFileBySearch(searchController.filesearchQuery)
       .then(function (results) {
-        console.log("DATA", results.data);
+        console.log(results.data);
+        console.log('from front-end')
         searchController.filesearchResults = results.data;
         searchController.showResultsForFile = true;
       });

@@ -5,7 +5,7 @@ header {
     width:         100%;
     height:         20px;
     background:    -webkit-linear-gradient(top, #253237, #253237 100%);
-    border-bottom: 1px solid #242423;
+    border-bottom: 3px solid #242423;
     -webkit-app-region: drag;
     -webkit-user-select: none;
 }
@@ -96,7 +96,13 @@ iframe {
 }
 
 .search-top {
-    border-bottom: 1px black;
+    margin-bottom: -35px;
+    float: right;
+    height: 5px;
+}
+
+.search-view {
+    padding-top: 35px;
 }
 
 .btn-sm {

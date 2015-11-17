@@ -2,7 +2,7 @@ var express = require('express');
 
 var app = express();
 
-// Connect to mongo database names knowitall
+// Connect to mongo database
 // mongoose.connect('mongodb://localhost/float');
 // Confirm connection
 // var db = mongoose.connection;
