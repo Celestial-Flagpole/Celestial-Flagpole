@@ -14,14 +14,16 @@
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
 1. [Team](#team)
 1. [Contributing](#contributing)
 
 ## Usage
 
 > Floatie is built using Node webkit (nw.js). nw.js is an app runtime based on Chromium and io.js for building desktop applications that will run on OSX, Windows and Linux. You can read more about it here (https://github.com/nwjs/npm-installer).
-To begin using floatie, first download the app and launch it. Then to watch a video, drag a url onto the screen. To view a file, drag a file onto the screen. There's also a search bars available for searching youtube videos. You can click on these search results to view them in the floatie screen. That's it!
+
+> To begin using floatie, first download the app and launch it. Then to watch a video, drag a url onto the screen. To view a file, drag a file onto the screen. There's also a search bar for searching youtube videos. You can click on these search results to view them in the floatie screen. 
+
+> That's it!
 
 ## Requirements
 
@@ -44,7 +46,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [https://github.com/Celestial-Flagpole/Celestial-Flagpole/issues](LINK_TO_PROJECT_ISSUES)
+View the project roadmap (https://github.com/Celestial-Flagpole/Celestial-Flagpole/issues)
 
 ## Contributing
 
