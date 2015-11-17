@@ -80,21 +80,10 @@ helpMenu.append(new nw.MenuItem({
   }
 }));
 
-nw.Window.get().menu = windowMenu;
-
-// Go To menu
-var goToMenu = new nw.Menu();
-
-// Add to window menu
-windowMenu.append(new nw.MenuItem({
-  label: 'Go to',
-  submenu: goToMenu
-}));
-
 // About sub-entry
-goToMenu.append(new nw.MenuItem({
-  label: 'URL',
-  cssClass: 'goto',
+helpMenu.append(new nw.MenuItem({
+  label: 'How to use',
+  cssClass: 'help',
   click: function () {
     BootstrapDialog.show({
         message: function(dialog) {
