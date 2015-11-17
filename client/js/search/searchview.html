@@ -1,4 +1,4 @@
-<div class="row ">
+<div class="row search-top">
     <div class="col-lg-12">
         <div class="input-group">
             <form ng-keyup="searchController.searchYoutube()" action="#">
@@ -9,7 +9,8 @@
         </div>
     </div>
 
-    <div class="col-lg-12">
+<!-- HIDDEN FOR FUTURE USE ONCE SEARCH FOR LOCAL FILES FUNCTIONALITY IS IMPROVED -->
+<!--     <div class="col-lg-12">
         <div class="input-group">
             <form ng-submit="searchController.searchFiles()">
                 <input type="text" id="search" ng-model="searchController.filesearchQuery" placeholder="Search for a file..." autocomplete="off" class="form-control" />
@@ -18,10 +19,10 @@
                 </span>
             </form>
         </div>
-    </div>
+    </div> -->
 </div>
 
-<div class="col-lg-12" ng-show="searchController.showResults()" ng-repeat="result in searchController.youtubeResults">
+<div class="col-lg-12 search-view" ng-show="searchController.showResults()" ng-repeat="result in searchController.youtubeResults">
     <div class="snippet">
         <span ng-click="searchController.playVideo(result.id.videoId)">
             <img src="{{ result.snippet.thumbnails.default.url}}"/>
@@ -30,10 +31,11 @@
     </div>
 </div>
 
-<div ng-show="searchController.showResultsForFile()" ng-repeat="result in searchController.filesearchResults">
+<!-- HIDDEN FOR FUTURE USE ONCE SEARCH FOR LOCAL FILES FUNCTIONALITY IS IMPROVED -->
+<!-- <div ng-show="searchController.showResultsForFile()" ng-repeat="result in searchController.filesearchResults">
     <div class="snippet">
         <span ng-click="searchController.showFile(result.file)">
          {{result.file}}
         </span>
     </div>
-</div>
+</div> -->

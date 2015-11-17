@@ -33,13 +33,14 @@ angular.module('floatie.services.video', [])
     }
   };
 
+  // add event listener to play video or read file when dragging to drop zone
   this.addEventListeners = function (element, player) {
     this.player = player;
-    //add event listener to play video or read file when dragging to drop zone
     element[0].parentElement.ondragenter = this.playVideo.bind(this, player);
     dropZone.ondragenter = this.playVideo.bind(this, player);
   };
 
+  // loads a clicked or dragged file onto the screen
   this.loadFile = function () {
     //stop video if there was a video playing.
     if (this.player !== undefined) this.player.stopVideo();
@@ -60,11 +61,12 @@ angular.module('floatie.services.video', [])
           });
   };
 
-    this.playVideoBySearch = function (videoId) {
-        this.player.loadVideoById({videoId: videoId});
-    };
+  // method to play video that was clicked during a search event (vs. drag and drop event)
+  this.playVideoBySearch = function (videoId) {
+      this.player.loadVideoById({videoId: videoId});
+  };
   
-
+  // method to show file that was clicked during a search event (vs. drag and drop event)
   this.loadFileBySearch = function (path) {
     console.log("PATH: ", path);
      //stop video if there was a video playing.
@@ -85,13 +87,3 @@ angular.module('floatie.services.video', [])
     };
 
 });
-
-// angular.module('floatie.services.video', [])
-// .service('VideoService', function ($http, $q) {
-//   var service = this;
-  
-//   service.someFunc= function () {
-
-//   };
-
-// });

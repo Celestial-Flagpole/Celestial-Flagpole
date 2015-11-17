@@ -4,8 +4,6 @@ var Walker = require('walker');
 var url = require('url');
 var walk = require('walk');
 
-//console.log(os.homedir());
-
 //var direct = os.homedir() + '/Desktop/HackReactor';
 
 options = {
@@ -13,9 +11,10 @@ options = {
   filters: ["Temp", "_Temp", "node_modules"]
 };
 
-var walker = walk.walk('/Users/andresmm/Documents', options);
+var walker = walk.walk('/Users/peekay/Desktop/hackreactor', options);
 
 module.exports = {
+  // function to read all the files in user's local directory
   readDir: function(req, res, next) {
 
     function split(dir) {
@@ -23,10 +22,13 @@ module.exports = {
     }
 
     var query = url.parse(req.url).pathname;
+
     query = query.split('/')[1];
-    console.log(query);
+
     var results = [];
 
+    // On every file, we check if the file matches the query the user submitted
+    // if yes, we add it to our results array
     walker.on('file', function (root, fileStats, next) {
       if (fileStats.name === query) {
         results.push({'file': root + '/' + fileStats.name});
@@ -34,22 +36,22 @@ module.exports = {
       }
       next();
     });
-   
+    
+    // Error handler
     walker.on("errors", function (root, nodeStatsArray, next) {
       next();
     });
-   
+    
+    // Once all the files have been walked, we return the results
     walker.on("end", function () {
       console.log("all doneee: ", results);
-      //res.status(200);
-      //res.send(results);
-      //res.status(200).send(results);
       res.status(200);
       res.json(results);
     });
   }
 };
 
+// Another npm module which does the same thing as above. We decided to use the one above, but leaving this here just in case.
 
     // Walker('/Users/peekay/Desktop/hackreactor/')
     //   .filterDir(function (dir, stat) {
